@@ -1,1 +1,1 @@
-# loteria
+# CryptoLoteria

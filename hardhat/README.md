@@ -1,0 +1,8 @@
+# Contract Address 
+
+### Loteria Token - Ganache
+
+Community Wallet: 0xbdd23EEE945414536063923FBD81B36cb2492111
+ERC-721 Loteria Token Address: 0x3969aD121Af56f4dA5B65753acA862A67B1C1170
+ERC-20 Bean Token: 0xE8E3530528E94d9F4eAD16D7a5A308322B6F18f0
+
