@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
 
 import {
@@ -10,6 +10,8 @@ import {
 
 import Mint from "./components/Mint.js";
 import Game from "./components/Game.js";
+
+import {ethers,utils} from "ethers";
 
 function App() {
 
@@ -41,11 +43,12 @@ function App() {
 
 
 function Home() {
+    const [polygonConnect, setPolygonConnect] = useState(false);
     // ERC-20
     const beanTokenAddress = process.env.REACT_APP_BEAN_TOKEN;
     const tokenSymbol = "BEAN";
     const beanTokenDecimals = 18;
-    const tokenImage=""; // TODO: URL for the BEAN icon
+    const tokenImage = ""; // TODO: URL for the BEAN icon
 
     // ERC-721
     const loteriaToken = process.env.REACT_APP_LOTERIA_TOKEN;
@@ -75,18 +78,49 @@ function Home() {
                 console.log("opted-out");
             }
         } catch (e) {
-            alert("please install metamask.")
+            alert("Okay, come back later.")
         }
 
 
-
     }
+
+    const connectToPolygonTestNet = async () => {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                    {
+                        chainId: utils.hexValue(80001),
+                        chainName:'Mumbai PoS Testnet',
+                        rpcUrls:['https://rpc-mumbai.matic.today'],
+                        blockExplorerUrls:['https://mumbai.polygonscan.com/'],
+                        nativeCurrency: {
+                            symbol:'tMATIC',
+                            name: 'tMATIC',
+                            decimals: 18
+                        },
+                        iconUrls: ["https://polygon.technology/_nuxt/img/polygon-logo-white.a8997ce.svg"]
+                    }
+                ]});
+
+            setPolygonConnect(true);
+        } catch (err) {
+                console.log(err);
+            }
+    }
+
 
     return (
         <div>
             <h1>Crypto Loteria</h1>
 
-            <button onClick={addBeanTokenToWallet}>Add Bean Token</button>
+            {polygonConnect ? <p> You are connected to Polygon </p> : <p>You are not connected to Polygon and won't be able to play.</p>}
+
+            <br/>
+
+            {<button onClick={connectToPolygonTestNet}>Connect to Polygon TestNet</button>}
+
+            {polygonConnect ? <button onClick={addBeanTokenToWallet}>Add Bean Token</button>: <p/>}
 
             <br/>
 

@@ -12,6 +12,7 @@ contract Game is PaymentSplitter, AccessControl {
         uint256 gameRoomNumber;
         address account;
         uint256 balance;
+        uint256 tokenId;
     }
 
     address[] private accounts = [0xB4ccF44f3ED31c9A35A7833e3E84eB0215a248D9];
@@ -80,12 +81,12 @@ contract Game is PaymentSplitter, AccessControl {
         return positions;
     }
 
-    function getPlayersBalance(uint256 gameRoomNumber, address account) public view returns (uint256) {
+    function getPlayersBalance(uint256 gameRoomNumber, address account, uint256 tokenId) public view returns (uint256) {
         for (uint256 i = 0; i < positions.length; ++i)
         {
             Position memory position = positions[i];
 
-            if (position.gameRoomNumber == gameRoomNumber && position.account == account)
+            if (position.gameRoomNumber == gameRoomNumber && position.account == account && position.tokenId == tokenId)
             {
                 uint256 balance = position.balance;
                 return balance;
@@ -99,7 +100,7 @@ contract Game is PaymentSplitter, AccessControl {
         return lockedBalance;
     }
 
-    function lockTokens(uint256 gameRoomNumber,uint256 depositValue) public returns(bool) {
+    function lockTokens(uint256 gameRoomNumber,uint256 tokenId, uint256 depositValue) public returns(bool) {
         //require(gameStatus[gameRoomNumber],"this game room does not exist.");
         require(token.balanceOf(msg.sender) >= depositValue,"you do not have enough beans to cover this cost.");
 
@@ -107,14 +108,16 @@ contract Game is PaymentSplitter, AccessControl {
         {
             address account = positions[i].account;
             uint256 balance = positions[i].balance;
+            uint256 gameRoom = positions[i].gameRoomNumber;
+            uint256 boardTokenId = positions[i].tokenId;
             uint256 lockedBeans = lockedTokens[gameRoomNumber];
 
-            if (account == msg.sender && balance > 0)
+            if (account == msg.sender && gameRoomNumber == gameRoom && boardTokenId == tokenId && balance > 0)
             {
-                uint256 newBalance = balance + depositValue;
+                uint256 playersNewBalance = balance + depositValue;
                 uint256 newLockedBalance = lockedBeans + depositValue;
 
-                positions[i].balance = newBalance;
+                positions[i].balance = playersNewBalance;
                 lockedTokens[gameRoomNumber] += newLockedBalance;
 
                 token.transferFrom(msg.sender,address(this),depositValue);
@@ -123,7 +126,7 @@ contract Game is PaymentSplitter, AccessControl {
             }
         }
 
-        Position memory position = Position(gameRoomNumber,msg.sender,depositValue);
+        Position memory position = Position(gameRoomNumber,msg.sender,depositValue,tokenId);
         lockedTokens[gameRoomNumber] += depositValue;
         positions.push(position);
 

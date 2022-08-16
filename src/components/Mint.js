@@ -56,7 +56,7 @@ function Mint() {
 
             {wallet && <button onClick={handleMint}>Mint</button>}
 
-            {txHash && <p>Transaction Hash: {txHash}</p>}
+            {txHash && <a href={`https://mumbai.polygonscan.com/tx/${txHash}`}> Verify your mint.</a>}
 
         </div>
     );

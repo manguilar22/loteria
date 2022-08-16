@@ -5,3 +5,4 @@ hardhat/node_modules
 hardhat/typechain-types
 hardhat/.gitignore
 .idea
+.secret
