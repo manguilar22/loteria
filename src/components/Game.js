@@ -162,11 +162,11 @@ function Game() {
 
             const approve = await bean.approve(gameMaster.address, ethers.utils.parseEther(difference.toString()));
 
-            approve.wait(2);
+            await approve.wait();
 
-            const deposit = await gameMaster.lockTokens(gameRoomNumber,tokenId,ethers.utils.parseEther(difference.toString()));
+            const deposit = await gameMaster.lockTokens(gameRoomNumber, tokenId, ethers.utils.parseEther(difference.toString()));
 
-            console.log(deposit.blockNumber);
+            await deposit.wait();
 
             setDepositTX(deposit);
         } else {
@@ -175,9 +175,11 @@ function Game() {
 
             const approve = await bean.approve(gameMaster.address,ethers.utils.parseEther(depositValue.toString()));
 
-            approve.wait(2);
+            await approve.wait();
 
             const deposit = await gameMaster.lockTokens(gameRoomNumber,tokenId,ethers.utils.parseEther(depositValue.toString()));
+
+            await deposit.wait();
 
             setDepositTX(deposit);
         }
