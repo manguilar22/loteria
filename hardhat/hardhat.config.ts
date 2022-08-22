@@ -71,10 +71,17 @@ const config: HardhatUserConfig = {
         ganache: {
             chainId: 1337,
             url: "http://127.0.0.1:8545",
-            accounts: ["0xc754b06e6f1ce37ed9173449374eac4d2aa3b32f964e7689b224975ca98bcfef"],
+            accounts: ["0xd830dd3058e57fd4800f00531b62eaad1dc650b6307e3445d9b63c0ef2120bc2"],
             gas: 10000000,
             gasPrice: 2100000000
         },
+        polygonTest: {
+            chainId: 80001,
+            url: "https://rpc-mumbai.maticvigil.com",
+            accounts: [""],
+            gas: "auto",
+            gasPrice: "auto"
+        }
     },
     paths: {
         sources: "./contracts",

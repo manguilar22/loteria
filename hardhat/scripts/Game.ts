@@ -2,16 +2,8 @@ import {ethers} from "hardhat";
 
 async function main() {
 
-    const remotePlayer = "0xDE0EC906B1A038Bf02b69fD0F8Bcf10d2882De9E";
-
-    const address = "0xD49d10E0B1A307F010893e5278FBc79aD5041E08";
+    const address = "0xF6dD32F88eF71e695EcA3F9d8E37F65A7FBb89a6";
     const kermes = await ethers.getContractAt("Game", address);
-
-    const beanAddress = "0xc44B8cE1A8aE3e75bc5baBeC981640389e7dEB8C";
-    const bean = await ethers.getContractAt("Bean",beanAddress);
-
-    await bean.mint("1000");
-    await bean.transfer(remotePlayer, ethers.utils.parseEther("100"));
 
     const card1 = ["ElGwei",
         "Anonymous",
