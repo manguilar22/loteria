@@ -2,7 +2,9 @@
 
 ### High-Fidelity Prototype Demo
 
-https://ec2-54-90-243-99.compute-1.amazonaws.com
+http://ec2-3-85-37-83.compute-1.amazonaws.com
+
+[Prototype](http://ec2-3-85-37-83.compute-1.amazonaws.com/)
 
 ---
 
