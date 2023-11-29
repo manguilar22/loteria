@@ -1,10 +1,8 @@
 # CryptoLoteria
 
-### High-Fidelity Prototype Demo
+### Submission
 
-http://ec2-3-85-37-83.compute-1.amazonaws.com
-
-[Prototype](http://ec2-3-85-37-83.compute-1.amazonaws.com/)
+https://devpost.com/software/crypto-loteria
 
 ---
 
